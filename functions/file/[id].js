@@ -12,6 +12,7 @@ export async function onRequest(context) {
     const url = new URL(request.url);
 
     if (url.pathname.endsWith(".mp4")) {
+        const telegraphUrl = new URL(url.pathname + url.search, 'https://telegra.ph')
         const telegraphResponse = await fetch(telegraphUrl)
         const responseBody = await telegraphResponse.arrayBuffer()
 

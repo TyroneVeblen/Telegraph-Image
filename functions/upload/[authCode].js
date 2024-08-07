@@ -16,32 +16,9 @@ export async function onRequestPost(context) {
             headers: request.headers,
             body: request.body,
         });
-        response.json().then(data => {
-            if (data && data.length > 0 && data[0].src) {
-              // 提取文件路径
-              const filePath = data[0].src;
-              
-              // 使用正则表达式提取文件名
-              const fileNameMatch = filePath.match(/\/([^\/]+)$/);
-              
-              if (fileNameMatch && fileNameMatch[1]) {
-                const fileName = fileNameMatch[1];
-                console.log("File name:", fileName);
-                
-                // 将文件名存入 KV
-                // 注意：这里假设你已经有了一个 KV 命名空间的引用，称为 myKV
-                env.img_url.put(fileName,"")
-                  .then(() => console.log("File name saved to KV"))
-                  .catch(error => console.error("Error saving to KV:", error));
-              } else {
-                console.log("File name not found in the path");
-              }
-            } else {
-              console.log("Invalid response format");
-            }
-          }).catch(error => {
-            console.error("Error parsing response:", error);
-          });
+        const responseData = await response.json(); // 假设响应为 JSON 格式
+        console.log(responseData); // 打印响应数据
+    
         return response;
     } else {
         return new UnauthorizedException('no auth')

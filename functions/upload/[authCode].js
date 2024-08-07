@@ -16,8 +16,7 @@ export async function onRequestPost(context) {
             headers: request.headers,
             body: request.body,
         });
-        const responseClone = structuredClone(response)
-        responseClone.json().then(data => {
+        response.json().then(data => {
             if (data && data.length > 0 && data[0].src) {
               // 提取文件路径
               const filePath = data[0].src;

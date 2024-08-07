@@ -11,15 +11,11 @@ export async function onRequestPost(context) {
     context.request;
     const url = new URL(request.url);
     if (decodeURIComponent(params.authCode) === env.AUTH_CODE) {
-        const response = await fetch("https://telegra.ph/" + url.pathname + url.search, {
+        const response = fetch("https://telegra.ph/" + url.pathname + url.search, {
             method: request.method,
             headers: request.headers,
             body: request.body,
         })
-
-        const json=await response.json()
-        console.log(json)
-    
         return response;
     } else {
         return new UnauthorizedException('no auth')

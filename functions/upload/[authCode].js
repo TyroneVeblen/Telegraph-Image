@@ -16,9 +16,6 @@ export async function onRequestPost(context) {
             headers: request.headers,
             body: request.body,
         });
-        const responseData = (await fetch(response)).json(); // 假设响应为 JSON 格式
-        console.log(responseData); // 打印响应数据
-    
         return response;
     } else {
         return new UnauthorizedException('no auth')

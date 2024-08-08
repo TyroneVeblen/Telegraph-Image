@@ -10,7 +10,7 @@ export async function onRequest(context) {
     } = context;
     context.request;
     const url = new URL(request.url);
-    file_name=url.pathname.replace("/file/","")
+    const file_name=url.pathname.replace("/file/","")
     const value = await env.NAMESPACE.get(file_name);
     if (value === null) {
         return new Response("未经许可的访问！", {status: 404});

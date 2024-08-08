@@ -10,12 +10,22 @@ export async function onRequest(context) {
     } = context;
     context.request;
     const url = new URL(request.url);
-    const file_name=url.pathname.replace("/file/","")
+    const file_name = url.pathname.replace("/file/", "")
     console.log(file_name)
-    const value = await env.img_url.get(file_name);
-    if (value === null) {
-        return new Response("未经许可的访问！", {status: 404});
+    if (
+        typeof env.img_url == "undefined" ||
+        env.img_url == null ||
+        env.img_url == ""
+    ) {
+        console.log("No KV bound, skipped")
+    } else {
+        const value = await env.img_url.get(file_name);
+        if (value === null) {
+            return new Response("Unauthorized access!", { status: 404 });
+        }
     }
+
+
 
     if (url.pathname.endsWith(".mp4")) {
         const telegraphUrl = new URL(url.pathname + url.search, 'https://telegra.ph')

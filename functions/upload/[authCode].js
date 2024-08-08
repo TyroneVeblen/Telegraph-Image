@@ -17,9 +17,15 @@ export async function onRequestPost(context) {
             body: request.body,
         })
         const responseData = await response.json();
-        let file=responseData[0].src.replace("/file/","")
-        const put_KV=await env.img_url.put(file,"")
-        console.log(put_KV)
+        let file = responseData[0].src.replace("/file/", "")
+        if (
+            typeof env.img_url == "undefined" ||
+            env.img_url == null ||
+            env.img_url == ""
+        ) { console.log("No KV bound, skipped") } else {
+            const put_KV = await env.img_url.put(file, "")
+            console.log(put_KV)
+        }
         return new Response(JSON.stringify(responseData), {
             status: response.status,
             statusText: response.statusText,

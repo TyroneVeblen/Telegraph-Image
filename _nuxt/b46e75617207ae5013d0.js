@@ -193,7 +193,7 @@
                     r.a.post(`/upload/${window.localStorage.getItem('authCode')}`, o).then((function (t) {
                         if (200===t.status){
                             e.status = "done"
-                            e.imgUrl = location.origin + t.data()
+                            e.imgUrl = location.origin + t.data[0].src
                         }else {
                             e.showError()
                         }

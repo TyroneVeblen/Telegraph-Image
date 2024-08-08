@@ -67,8 +67,8 @@ Hostloc @feixiang和@乌拉擦 提供的思路和代码
 2024年8月8日
 
  - 允许在上传时便将文件名记录到KV中（没有KV绑定时失效）
- - 未经许可的访问（例如，在[teleph](https://telegra.ph/)中直接上传文件，然后将文件的URL变为任意使用Telegraph-Image作为网站框架的地址，这在原版本中被允许直接访问）现在不会返回图片，而是返回“Unauthorized access!”（没有绑定KV时失效）
- - 视频访问已修复，但可能导致cpu时间上升
+ - 未经许可的访问（例如，在telegraph中直接上传文件，然后将文件的URL变为任意使用Telegraph-Image作为网站框架的地址，这在原版本中被允许直接访问）现在不会返回图片，而是返回“Unauthorized access!”（没有绑定KV时失效）
+ - 视频访问现已通过直接await response获取完整视频后转发（telegraph仅支持不到5MB的视频，所以理论上很快）来解决可能的视频播放问题，但可能导致cpu时间上升
 
 
 2024年3月8日

@@ -12,8 +12,8 @@ export async function onRequest(context) {
     const url = new URL(request.url);
     const file_name=url.pathname.replace("/file/","")
     console.log(file_name)
-    const value = await env.NAMESPACE.get(file_name);
-    if (value === null || value=== undefined) {
+    const value = await env.img_url.get(file_name);
+    if (value === null) {
         return new Response("未经许可的访问！", {status: 404});
     }
 

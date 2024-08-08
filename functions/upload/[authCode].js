@@ -18,6 +18,7 @@ export async function onRequestPost(context) {
         })
         const responseData = await response.json();
         let file = responseData[0].src.replace("/file/", "")
+        // 允许在上传时便将文件名记录到KV中（没有KV绑定时失效）
         if (
             typeof env.img_url == "undefined" ||
             env.img_url == null ||

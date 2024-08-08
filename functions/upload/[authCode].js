@@ -18,8 +18,8 @@ export async function onRequestPost(context) {
         })
         const responseData = await response.json();
         let file=responseData[0].src.replace("/file/","")
-        console.log(file)
-        await env.img_url.put(file,"")
+        const put_KV=await env.img_url.put(file,"")
+        console.log(put_KV)
         return new Response(JSON.stringify(responseData), {
             status: response.status,
             statusText: response.statusText,

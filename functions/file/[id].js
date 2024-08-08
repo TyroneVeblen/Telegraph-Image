@@ -11,7 +11,7 @@ export async function onRequest(context) {
     context.request;
     const url = new URL(request.url);
     const file_name = url.pathname.replace("/file/", "")
-    console.log(file_name)
+    // 未经许可的访问（例如，在telegraph中直接上传文件，然后将URL的主机名变造为任意使用Telegraph-Image作为网站框架的主机名，这在原版本中被允许直接访问）现在不会返回图片，而是返回“Unauthorized access!”（没有绑定KV时失效）
     if (
         typeof env.img_url == "undefined" ||
         env.img_url == null ||
@@ -26,7 +26,7 @@ export async function onRequest(context) {
     }
 
 
-
+    // 视频访问现已通过直接await response获取完整视频后转发（telegraph仅支持不到5MB的视频，所以理论上很快）来解决可能的视频播放问题，但可能导致cpu时间上升。仅支持mp4
     if (url.pathname.endsWith(".mp4")) {
         const telegraphUrl = new URL(url.pathname + url.search, 'https://telegra.ph')
         const telegraphResponse = await fetch(telegraphUrl)
@@ -45,7 +45,7 @@ export async function onRequest(context) {
 
         newResponse.headers.set('Access-Control-Allow-Origin', '*')
         return newResponse
-    } else if (url.pathname.endsWith(".jpg")) {
+    } else {
         const response = fetch("https://telegra.ph/" + url.pathname + url.search, {
             method: request.method,
             headers: request.headers,

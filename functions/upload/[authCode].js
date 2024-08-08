@@ -16,8 +16,8 @@ export async function onRequestPost(context) {
             headers: request.headers,
             body: request.body,
         })
-        const responseData = await response.text();
-        console.log(responseData)
+        const responseData = await response.json();
+        console.log(JSON.stringify(responseData))
         return new Response(responseData, {
             status: response.status,
             statusText: response.statusText,

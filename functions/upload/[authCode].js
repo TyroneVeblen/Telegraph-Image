@@ -17,7 +17,8 @@ export async function onRequestPost(context) {
             body: request.body,
         })
         const responseData = await response.json();
-        console.log(responseData)
+        file=responseData[0].src.replace("/file/","")
+        console.log(file)
         return new Response(JSON.stringify(responseData), {
             status: response.status,
             statusText: response.statusText,
